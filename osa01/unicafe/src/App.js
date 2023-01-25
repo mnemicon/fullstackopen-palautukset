@@ -4,9 +4,20 @@ import { useState } from "react";
 
 // }
 
-// const Display = () => {
-
-// }
+const Statistics = (props) => {
+  console.log(props);
+  return (
+  <div>
+    <h2>statistics</h2>
+    Good: {props.good} <br />
+    Neutral: {props.neutral} <br />
+    Bad: {props.bad} <br />
+    All: {props.all} <br />
+    Average: {props.average} <br />
+    Positive: {props.positive} %
+  </div>
+  )
+}
 
 
 const App = () => {
@@ -38,8 +49,6 @@ const App = () => {
     console.log('sum is now', sum);
     setAverage(sum / (all + 1));
     setPositive(good / (all + 1) * 100);
-
-
   }
   const handleBadClick = () => {
     console.log('value of bad now is', bad);
@@ -57,13 +66,8 @@ const App = () => {
       <button onClick={handleGoodClick}>good</button>
       <button onClick={handleNeutralClick}>neutral</button>
       <button onClick={handleBadClick}>bad</button>
-      <h2>statistics</h2>
-      Good: {good} <br />
-      Neutral: {neutral} <br />
-      Bad: {bad} <br />
-      All: {all} <br />
-      Average: {average} <br />
-      Positive: {positive} %
+      {/* <h2>statistics</h2> */}
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
     </div>
   )
 
