@@ -11,23 +11,49 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The only way to go fast, is to go well.'
   ]
-  
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(0);      //selected arvoksi 0
+  const [votes, setVotes] = useState(Array(8).fill(0));  //luodaan taulukko arvoilla 0
+  console.log(selected);
+  console.log(anecdotes[selected]);
+  console.log(votes);
 
-  const handleClick = () => setSelected(random);
-
-  const random = () => {
-    return (
-      Math.floor(Math.random() * 8)
-    )
+  const handleClick = () => setSelected(Math.floor(Math.random() * 8));   //asetetaan muuttujalle selected satunnaisluku välillä 0-7
+  const handleVoteClick = () => {
+    let copy = [ ...votes ];
+    copy[selected] += 1;
+    //copy.splice(selected, 1, votes[selected]+1);
+    setVotes(copy);
+    console.log(copy);
   }
 
   return (
     <div>
+      <div>
       {anecdotes[selected]} <br />
+      has {votes[selected]} votes <br />
+      <button onClick={handleVoteClick}> vote </button>
       <button onClick={handleClick}>show anecdote</button>
+      </div>
     </div>
   )
 }
 
 export default App;
+
+  
+  // const handleVoteClick = () => {
+  //   copy[selected] += 1;
+  // }
+
+
+//  const votes = new Uint8Array(8);
+// TAI  
+// n = 999  // arbitrary length
+// a = Array(n).fill(0)
+
+// const handleClick = () => setSelected(random);
+// const random = () => {
+//   return (
+//     Math.floor(Math.random() * 8)
+//   )
+// }
