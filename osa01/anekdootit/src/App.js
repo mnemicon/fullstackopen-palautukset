@@ -13,26 +13,44 @@ const App = () => {
   ]
   const [selected, setSelected] = useState(0);      //selected arvoksi 0
   const [votes, setVotes] = useState(Array(8).fill(0));  //luodaan taulukko arvoilla 0
+  const [x, setX] = useState(0);
   console.log(selected);
   console.log(anecdotes[selected]);
   console.log(votes);
 
   const handleClick = () => setSelected(Math.floor(Math.random() * 8));   //asetetaan muuttujalle selected satunnaisluku välillä 0-7
   const handleVoteClick = () => {
-    let copy = [ ...votes ];
-    copy[selected] += 1;
-    //copy.splice(selected, 1, votes[selected]+1);
-    setVotes(copy);
+    const copy = [ ...votes ];
+    //copy.splice(selected, 1, votes[selected]+1);    //TURHA.
+    //setVotes({copy, copy[selected] += 1});    TÄMÄ OLI SE ALKUPERÄINEN, VIALLINEN YRITYS.
+    setVotes(copy, copy[selected] += 1);
     console.log(copy);
+    const arrayMax = () => {
+      let len = copy.length;
+      let max = -Infinity;
+      let index = 0;
+      while (len--) {
+        if (copy[len] > max) {
+          max = copy[len];
+          index = len;
+        }
+      }
+      return index;
+    }
+    setX(arrayMax);
   }
 
   return (
     <div>
       <div>
+        <h1>Anecdote of the year</h1>
       {anecdotes[selected]} <br />
       has {votes[selected]} votes <br />
       <button onClick={handleVoteClick}> vote </button>
-      <button onClick={handleClick}>show anecdote</button>
+      <button onClick={handleClick}>show anecdote</button> <br />
+      <h2>Anecdote with the most votes</h2>
+      "{anecdotes[x]}" has the most votes <br />
+      It has {votes[x]} votes. <br />
       </div>
     </div>
   )
@@ -57,3 +75,13 @@ export default App;
 //     Math.floor(Math.random() * 8)
 //   )
 // }
+
+
+// votes.sort(function(a, b){return a - b});
+// console.log("Lowest votes here:", votes[0]);
+// setX(votes[votes.length - 1]);  //votes[7]
+// console.log("Highest vote for ", votes.length - 1);
+
+
+// const myArrayMax = () => {
+//   return Math.max.apply(null, votes);
