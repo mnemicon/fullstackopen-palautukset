@@ -38,7 +38,6 @@ const Content = ({parts}) => {
       <Part part={ parts[3] } />
  */
 
-      /*
 const Total = ({sum}) => {
   return (
   <div>
@@ -46,7 +45,6 @@ const Total = ({sum}) => {
   </div>
   )
 }
-*/
 
 const Course = ({course}) => {
   //console.log(course)
@@ -55,11 +53,10 @@ const Course = ({course}) => {
     <div>
       <Header course={ course } />
       <Content parts={ course.parts } />
+      <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
     </div>
   )
 }
-//       <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
-
 
 const App = () => {
   //APP SISÄLTÄÄ KAIKEN DATAN
