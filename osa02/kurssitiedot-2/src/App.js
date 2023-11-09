@@ -1,51 +1,65 @@
-const Part = (props) => {
-   console.log(props)
+const Part = ({part}) => {
+   console.log(part)
+   //const { parts } = course
   return (
     <div>
-      <p> { props.course.parts[0].name } { props.course.parts[0].exercises } </p>
-      <p> { props.course.parts[1].name } { props.course.parts[1].exercises } </p>
-      <p> { props.course.parts[2].name } { props.course.parts[2].exercises } </p>
+      <p> { part.name } { part.exercises } </p>
     </div>
   )
 }
 
-const Header = (props) => {
+const Header = ({course}) => {
  //console.log(props);
 //MUISTA AINA RETURN-OSA JOKAISESSA KOMPONENTISSA
   return (
 //HAKEE TIEDOT PROPS-PARAN AVULLA
   <div>
-    <h1> { props.course.name } </h1>
+    <h1> { course.name } </h1>
   </div>
   )
 }
 
-const Content = (props) => {
+const Content = ({parts}) => {
   //console.log(props);
+  // ALLA OLEVA PÄTKÄ KAIKKEIN VAIKEIN, ML. SEN SUHDE KOMPONENTTIIN PART.
   return (
     <div>
-      <Part course={ props.course } />
+      { parts.map(part => 
+        <Part key={part.id} part={part}/>
+      )}
     </div>
   )
 }
 
-/*const Total = (props) => {
+/* TEHDÄÄN NÄISTÄ MAP-TOIMINNE:
+       <Part part={ parts[0] } />
+      <Part part={ parts[1] } />
+      <Part part={ parts[2] } />
+      <Part part={ parts[3] } />
+ */
+
+      /*
+const Total = ({sum}) => {
   return (
   <div>
-    <p>Number of exercises { props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises } </p>
+    <p>TOTAL of { sum } exercises </p>
   </div>
   )
-}*/
+}
+*/
 
-const Course = (props) => {
+const Course = ({course}) => {
   //console.log(course)
+  //PÄIVITELTY MUUTTUJIEN NIMIÄ SPESIFIMMIKSI.
   return (
     <div>
-      <Header course={ props.course } />
-      <Content course={ props.course } />
+      <Header course={ course } />
+      <Content parts={ course.parts } />
     </div>
   )
 }
+//       <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
+
 
 const App = () => {
   //APP SISÄLTÄÄ KAIKEN DATAN
@@ -67,6 +81,11 @@ const App = () => {
       name: 'State of a component',
       exercises: 14,
       id: 3
+    },
+    {
+      name: 'Redux',
+      exercises: 11,
+      id: 4
     }
   ]
 }
