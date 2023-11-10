@@ -1,6 +1,6 @@
 const Part = ({part}) => {
-   console.log(part)
-   //const { parts } = course
+   //console.log(part)
+   //const { parts } = course ===>> 15 + 5 h (11.10.2023)
   return (
     <div>
       <p> { part.name } { part.exercises } </p>
@@ -32,17 +32,20 @@ const Content = ({parts}) => {
 }
 
 /* TEHDÄÄN NÄISTÄ MAP-TOIMINNE:
-       <Part part={ parts[0] } />
+      <Part part={ parts[0] } />
       <Part part={ parts[1] } />
       <Part part={ parts[2] } />
       <Part part={ parts[3] } />
  */
 
-const Total = ({sum}) => {
+const Total = ({parts}) => {
+  const sum = parts.reduce( (total, amount) =>
+  total + amount.exercises, 0)
+  console.log("hello", sum)
   return (
-  <div>
-    <p>TOTAL of { sum } exercises </p>
-  </div>
+    <div>
+      <p> TOTAL of {sum} exercises </p>
+    </div>
   )
 }
 
@@ -53,10 +56,12 @@ const Course = ({course}) => {
     <div>
       <Header course={ course } />
       <Content parts={ course.parts } />
-      <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
+      <Total parts={ course.parts } />
     </div>
   )
 }
+
+//       <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
 
 const App = () => {
   //APP SISÄLTÄÄ KAIKEN DATAN
