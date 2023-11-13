@@ -1,6 +1,6 @@
 const Part = ({part}) => {
    //console.log(part)
-   //const { parts } = course ===>> 15 + 5 h (11.10.2023)
+   //const { parts } = course ===>> 15h + 5h + 2h (13.10.2023)
   return (
     <div>
       <p> { part.name } { part.exercises } </p>
@@ -14,8 +14,16 @@ const Header = ({course}) => {
   return (
 //HAKEE TIEDOT PROPS-PARAN AVULLA
   <div>
-    <h1> { course.name } </h1>
+    <h2> { course.name } </h2>
   </div>
+  )
+}
+
+const Title = ({curriculum}) => {
+  return (
+    <div>
+      <h1> {curriculum.name} </h1>
+    </div>
   )
 }
 
@@ -40,14 +48,16 @@ const Content = ({parts}) => {
 
 const Total = ({parts}) => {
   const sum = parts.reduce( (total, amount) =>
-  total + amount.exercises, 0)
+  total + amount.exercises, 0) // ei toimi ilman initialValueta.
   console.log("hello", sum)
   return (
     <div>
-      <p> TOTAL of {sum} exercises </p>
+      <p><b> TOTAL of {sum} exercises </b> </p>
     </div>
   )
 }
+
+//       <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
 
 const Course = ({course}) => {
   //console.log(course)
@@ -61,33 +71,73 @@ const Course = ({course}) => {
   )
 }
 
-//       <Total sum={ course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises } />
+const Courses = ({courses}) => {
+  return (
+    <div>
+        { courses.map(course => 
+        <Course key={course.id} course={course}/>
+        )}
+    </div>
+  )
+}
+
+const Curriculum = ({curriculum}) => {
+  return (
+    <div>
+      <Title curriculum={curriculum} />
+      <Courses courses={curriculum.courses} />
+    </div>
+  )
+}
 
 const App = () => {
   //APP SISÄLTÄÄ KAIKEN DATAN
-  const course = {
-    name: 'Half Stack application development',
+
+  const curriculum = {
+    name: 'Web developer curriculum',
     id: 1,
-    parts: [
+    courses: [
     {
-      name: 'Fundamentals of React',
-      exercises: 10,
-      id: 1
+        name: 'Half Stack application development',
+        id: 1,
+        parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
     },
     {
-      name: 'Using props to pass data',
-      exercises: 7,
-      id: 2
-    },
-    {
-      name: 'State of a component',
-      exercises: 14,
-      id: 3
-    },
-    {
-      name: 'Redux',
-      exercises: 11,
-      id: 4
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middleware',
+          exercises: 7,
+          id: 2
+        }
+      ]
     }
   ]
 }
@@ -100,7 +150,7 @@ const App = () => {
       <Total course={course} />
     </div>*/
     <div>
-      <Course course={course} />
+      <Curriculum curriculum={curriculum} />
     </div>
   )
 }
